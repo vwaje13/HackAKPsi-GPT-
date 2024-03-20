@@ -11,7 +11,7 @@ CORS(app)
 
 
 @app.route('/', methods=['POST'])
-def stock_tracker():
+def gpt():
 
     json_data = json.dumps(0)
     response = app.response_class(
