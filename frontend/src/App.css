@@ -33,7 +33,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("/Users/jayvanam/Documents/GitHub/HackAKPsi/frontend/src/DSC019267.jpg")
+  background: url("./DSC019267.jpg")
     no-repeat center center fixed;
   background-size: cover;
   opacity: 0.5;
@@ -128,7 +128,7 @@ button:hover {
 }
 
 .blob {
-  background-image: url("/Users/jayvanam/Documents/GitHub/HackAKPsi/frontend/src/akpsilogo.png");
+  background-image: url("./akpsilogo.png");
   background-size: contain;
   background-repeat: no-repeat;
   width: 50px;
