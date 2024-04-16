@@ -18,20 +18,38 @@ function App() {
 
   const handleSubmit = () => {
     if (!input.trim()) return;
-    const newMessages = [...messages, { text: input, sender: "user" }];
-    setMessages(newMessages);
+    const userMessage = { text: input, sender: "user" };
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsThinking(true);
 
-    // Simulate an API call for bot response
-    setTimeout(() => {
-      const botResponse = "This is a response from the bot.";
-      setIsThinking(false);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: botResponse, sender: "bot" },
-      ]);
-    }, 2000);
+    fetch("http://localhost:5000/process-csv", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: input }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setIsThinking(false);
+        if (data.error) {
+          setMessages((prev) => [...prev, { text: data.error, sender: "bot" }]);
+        } else {
+          setMessages((prev) => [
+            ...prev,
+            { text: data.response, sender: "bot" },
+          ]);
+        }
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+        setIsThinking(false);
+        setMessages((prev) => [
+          ...prev,
+          { text: "Failed to fetch response.", sender: "bot" },
+        ]);
+      });
   };
 
   return (
