@@ -1,3 +1,140 @@
-.main {
-    color: black;
+/* App layout */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  position: relative;
+  padding-top: 50px;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.App::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: black;
+  background-size: cover;
+  opacity: 1; /* Lower for more transparency */
+  z-index: -1;
+}
+
+.App::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("/Users/jayvanam/Documents/GitHub/HackAKPsi/frontend/src/DSC019267.jpg")
+    no-repeat center center fixed;
+  background-size: cover;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.App-header {
+  color: #ffffff; /* White color for contrast */
+  font-size: 2rem; /* Adjust size as needed */
+  font-weight: bold; /* Make text bold */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Black shadow for readability */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  padding: 0.5rem 1rem; /* Spacing around text */
+  border-radius: 5px; /* Rounded corners for the background */
+  position: absolute; /* Position it over the image */
+  top: 50px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%); /* Center the div */
+  z-index: 10; /* Make sure it's above other elements */
+}
+
+.message-container {
+  width: 80%;
+  max-width: 600px;
+  height: 500px;
+  border-radius: 8px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.message.user {
+  align-self: flex-end;
+  background-color: #0a4870;
+  color: white;
+}
+
+.message.bot {
+  align-self: flex-start;
+  background-color: #f1c40f;
+  color: black;
+}
+
+.input-area {
+  width: 80%;
+  max-width: 600px;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input {
+  flex-grow: 1;
+  border: 2px solid #0a4870;
+  padding: 10px 15px;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #0a4870;
+  border: none;
+  color: white;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #083954;
+}
+
+@keyframes pulsate {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.blob {
+  background-image: url("/Users/jayvanam/Documents/GitHub/HackAKPsi/frontend/src/akpsilogo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  align-self: center;
+  margin: 10px 0;
+  display: inline-block; /* Make sure it's inline-block or block for the animation to work */
+  animation: pulsate 1.5s infinite ease-in-out;
 }
