@@ -2,13 +2,21 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import csv
 import openai
+import json
 
 app = Flask(__name__)
 # Enable CORS for all routes from the specific origin where your React app is hosted
 CORS(app, resources={r"/process-csv": {"origins": "http://localhost:3000"}})
 
 # Replace 'your-openai-api-key' with your actual OpenAI API key.
-openai.api_key = 'key'
+# Read JSON file
+with open('./apikey.json', 'r') as file:
+    json_data = file.read()
+
+# Parse JSON data
+parsed_data = json.loads(json_data)
+
+openai.api_key = parsed_data['api_key']
 
 # Path to your CSV file
 filename = 'roster.csv'
@@ -43,7 +51,7 @@ def process_csv():
         with open(filename, mode='r', encoding='utf-8') as file:
             csv_reader = csv.DictReader(file)
             for row in csv_reader:
-                previous_context += str(row) + "\n\n\n"
+                previous_context += str(row) + "\n"
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
