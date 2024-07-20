@@ -3,6 +3,7 @@ from flask_cors import CORS
 import csv
 import openai
 import json
+import gspread
 
 app = Flask(__name__)
 # Enable CORS for all routes from the specific origin where your React app is hosted
@@ -17,6 +18,8 @@ with open('./apikey.json', 'r') as file:
 parsed_data = json.loads(json_data)
 
 openai.api_key = parsed_data['api_key']
+
+sa = gspread.service_account(filename='service_account.json')
 
 # Path to your CSV file
 filename = 'roster.csv'
@@ -48,6 +51,13 @@ def process_csv():
     previous_context = "This is what we talked about earlier.\n"
     
     try:
+        sh = sa.open("Mu Rho Roster Spring 2024")
+        rosterSheet = sh.get_worksheet(1)
+        list_of_lists = rosterSheet.get_all_values()
+        # print(list_of_lists)
+        with open(filename, 'w', newline='\n') as f:
+            writer = csv.writer(f)
+            writer.writerows(list_of_lists)
         with open(filename, mode='r', encoding='utf-8') as file:
             csv_reader = csv.DictReader(file)
             for row in csv_reader:
